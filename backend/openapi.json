@@ -1,0 +1,6284 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "AI Competitor Insight Hub API",
+    "description": "API для мониторинга новостей из мира ИИ-индустрии",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/api/v1/auth/register": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Register",
+        "description": "User registration endpoint",
+        "operationId": "register_api_v1_auth_register_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserRegister"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Register Api V1 Auth Register Post"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Access denied"
+          }
+        }
+      }
+    },
+    "/api/v1/auth/login": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Login",
+        "description": "User login endpoint",
+        "operationId": "login_api_v1_auth_login_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserLogin"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Access denied"
+          }
+        }
+      }
+    },
+    "/api/v1/auth/refresh": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Refresh Token",
+        "description": "Refresh access token endpoint",
+        "operationId": "refresh_token_api_v1_auth_refresh_post",
+        "parameters": [
+          {
+            "name": "refresh_token",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Refresh Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Access denied"
+          }
+        }
+      }
+    },
+    "/api/v1/auth/logout": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Logout",
+        "description": "User logout endpoint",
+        "operationId": "logout_api_v1_auth_logout_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Access denied"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/auth/reset-password": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Reset Password",
+        "description": "Password reset endpoint",
+        "operationId": "reset_password_api_v1_auth_reset_password_post",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Email"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Access denied"
+          }
+        }
+      }
+    },
+    "/api/v1/news/": {
+      "post": {
+        "tags": [
+          "News",
+          "news"
+        ],
+        "summary": "Create News",
+        "operationId": "create_news_api_v1_news__post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewsCreateSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Create News Api V1 News  Post"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "News item not found"
+          },
+          "422": {
+            "description": "Invalid news parameters"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "News",
+          "news"
+        ],
+        "summary": "Get News",
+        "description": "Get news items with enhanced filtering and search capabilities\n\nReturns paginated list of news items with comprehensive filtering options.",
+        "operationId": "get_news_api_v1_news__get",
+        "parameters": [
+          {
+            "name": "category",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/NewsCategory"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by news category",
+              "title": "Category"
+            },
+            "description": "Filter by news category"
+          },
+          {
+            "name": "company_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by single company ID",
+              "title": "Company Id"
+            },
+            "description": "Filter by single company ID"
+          },
+          {
+            "name": "company_ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by multiple company IDs (comma-separated)",
+              "title": "Company Ids"
+            },
+            "description": "Filter by multiple company IDs (comma-separated)"
+          },
+          {
+            "name": "source_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/SourceType"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by source type",
+              "title": "Source Type"
+            },
+            "description": "Filter by source type"
+          },
+          {
+            "name": "search_query",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Search query for title/content",
+              "title": "Search Query"
+            },
+            "description": "Search query for title/content"
+          },
+          {
+            "name": "min_priority",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number",
+                  "maximum": 1.0,
+                  "minimum": 0.0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Minimum priority score",
+              "title": "Min Priority"
+            },
+            "description": "Minimum priority score"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "description": "Number of news items to return",
+              "default": 20,
+              "title": "Limit"
+            },
+            "description": "Number of news items to return"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of news items to skip",
+              "default": 0,
+              "title": "Offset"
+            },
+            "description": "Number of news items to skip"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Get News Api V1 News  Get"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "News item not found"
+          },
+          "422": {
+            "description": "Invalid news parameters"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/news/{news_id}": {
+      "put": {
+        "tags": [
+          "News",
+          "news"
+        ],
+        "summary": "Update News",
+        "operationId": "update_news_api_v1_news__news_id__put",
+        "parameters": [
+          {
+            "name": "news_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "News Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewsUpdateSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Update News Api V1 News  News Id  Put"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "News item not found"
+          },
+          "422": {
+            "description": "Invalid news parameters"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "News",
+          "news"
+        ],
+        "summary": "Delete News",
+        "operationId": "delete_news_api_v1_news__news_id__delete",
+        "parameters": [
+          {
+            "name": "news_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "News Id"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "404": {
+            "description": "News item not found"
+          },
+          "422": {
+            "description": "Invalid news parameters"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "News",
+          "news"
+        ],
+        "summary": "Get News Item",
+        "description": "Get specific news item by ID with full details\n\nReturns detailed information about a specific news item including\nrelated company information, keywords, and user activities.",
+        "operationId": "get_news_item_api_v1_news__news_id__get",
+        "parameters": [
+          {
+            "name": "news_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "News Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Get News Item Api V1 News  News Id  Get"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "News item not found"
+          },
+          "422": {
+            "description": "Invalid news parameters"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/news/stats": {
+      "get": {
+        "tags": [
+          "News",
+          "news"
+        ],
+        "summary": "Get News Statistics",
+        "description": "Get comprehensive news statistics\n\nReturns statistics about news items including counts by category,\nsource type, recent news, and high priority items.",
+        "operationId": "get_news_statistics_api_v1_news_stats_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewsStatsSchema"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "News item not found"
+          },
+          "422": {
+            "description": "Invalid news parameters"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/news/stats/by-companies": {
+      "get": {
+        "tags": [
+          "News",
+          "news"
+        ],
+        "summary": "Get News Statistics By Companies",
+        "description": "Get comprehensive news statistics filtered by company IDs\n\nReturns statistics about news items for specific companies including counts by category,\nsource type, recent news, and high priority items.",
+        "operationId": "get_news_statistics_by_companies_api_v1_news_stats_by_companies_get",
+        "parameters": [
+          {
+            "name": "company_ids",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Comma-separated company IDs",
+              "title": "Company Ids"
+            },
+            "description": "Comma-separated company IDs"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewsStatsSchema"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "News item not found"
+          },
+          "422": {
+            "description": "Invalid news parameters"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/news/search": {
+      "get": {
+        "tags": [
+          "News",
+          "news"
+        ],
+        "summary": "Search News",
+        "description": "Search news items with advanced filtering\n\nPerforms full-text search across news titles, content, and summaries\nwith optional filtering by category, source type, and company.",
+        "operationId": "search_news_api_v1_news_search_get",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Search query",
+              "title": "Q"
+            },
+            "description": "Search query"
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/NewsCategory"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by category",
+              "title": "Category"
+            },
+            "description": "Filter by category"
+          },
+          {
+            "name": "source_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/SourceType"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by source type",
+              "title": "Source Type"
+            },
+            "description": "Filter by source type"
+          },
+          {
+            "name": "company_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by company ID",
+              "title": "Company Id"
+            },
+            "description": "Filter by company ID"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "description": "Number of results to return",
+              "default": 20,
+              "title": "Limit"
+            },
+            "description": "Number of results to return"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of results to skip",
+              "default": 0,
+              "title": "Offset"
+            },
+            "description": "Number of results to skip"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Search News Api V1 News Search Get"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "News item not found"
+          },
+          "422": {
+            "description": "Invalid news parameters"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/news/category/{category_name}": {
+      "get": {
+        "tags": [
+          "News",
+          "news"
+        ],
+        "summary": "Get News By Category",
+        "description": "Get news items by category with statistics\n\nReturns paginated list of news items for a specific category along with\nstatistics about top companies and source distribution.",
+        "operationId": "get_news_by_category_api_v1_news_category__category_name__get",
+        "parameters": [
+          {
+            "name": "category_name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Category Name"
+            }
+          },
+          {
+            "name": "company_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by single company ID",
+              "title": "Company Id"
+            },
+            "description": "Filter by single company ID"
+          },
+          {
+            "name": "company_ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by multiple company IDs (comma-separated)",
+              "title": "Company Ids"
+            },
+            "description": "Filter by multiple company IDs (comma-separated)"
+          },
+          {
+            "name": "source_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/SourceType"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by source type",
+              "title": "Source Type"
+            },
+            "description": "Filter by source type"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "description": "Number of news items to return",
+              "default": 20,
+              "title": "Limit"
+            },
+            "description": "Number of news items to return"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of news items to skip",
+              "default": 0,
+              "title": "Offset"
+            },
+            "description": "Number of news items to skip"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Get News By Category Api V1 News Category  Category Name  Get"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "News item not found"
+          },
+          "422": {
+            "description": "Invalid news parameters"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/news/categories/list": {
+      "get": {
+        "tags": [
+          "News",
+          "news"
+        ],
+        "summary": "Get News Categories",
+        "description": "Get available news categories with descriptions\n\nReturns list of all available news categories with their descriptions.",
+        "operationId": "get_news_categories_api_v1_news_categories_list_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "News item not found"
+          },
+          "422": {
+            "description": "Invalid news parameters"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/news/{news_id}/mark-read": {
+      "post": {
+        "tags": [
+          "News",
+          "news"
+        ],
+        "summary": "Mark News Read",
+        "operationId": "mark_news_read_api_v1_news__news_id__mark_read_post",
+        "parameters": [
+          {
+            "name": "news_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "News Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "News item not found"
+          },
+          "422": {
+            "description": "Invalid news parameters"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/news/{news_id}/favorite": {
+      "post": {
+        "tags": [
+          "News",
+          "news"
+        ],
+        "summary": "Favorite News",
+        "operationId": "favorite_news_api_v1_news__news_id__favorite_post",
+        "parameters": [
+          {
+            "name": "news_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "News Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "News item not found"
+          },
+          "422": {
+            "description": "Invalid news parameters"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/users/me": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get Current User Profile",
+        "description": "Get current user profile",
+        "operationId": "get_current_user_profile_api_v1_users_me_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "409": {
+            "description": "User already exists"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Update Current User",
+        "description": "Update current user profile",
+        "operationId": "update_current_user_api_v1_users_me_put",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserUpdateSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "409": {
+            "description": "User already exists"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/users/preferences": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get User Preferences",
+        "description": "Get user preferences",
+        "operationId": "get_user_preferences_api_v1_users_preferences_get",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "409": {
+            "description": "User already exists"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Update User Preferences",
+        "description": "Update user preferences",
+        "operationId": "update_user_preferences_api_v1_users_preferences_put",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "notification_frequency",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Notification Frequency"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_update_user_preferences_api_v1_users_preferences_put"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "409": {
+            "description": "User already exists"
+          }
+        }
+      }
+    },
+    "/api/v1/users/companies/{company_id}/subscribe": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Subscribe To Company",
+        "description": "Subscribe to a company",
+        "operationId": "subscribe_to_company_api_v1_users_companies__company_id__subscribe_post",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Company Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "409": {
+            "description": "User already exists"
+          }
+        }
+      }
+    },
+    "/api/v1/users/companies/{company_id}/unsubscribe": {
+      "delete": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Unsubscribe From Company",
+        "description": "Unsubscribe from a company",
+        "operationId": "unsubscribe_from_company_api_v1_users_companies__company_id__unsubscribe_delete",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Company Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "409": {
+            "description": "User already exists"
+          }
+        }
+      }
+    },
+    "/api/v1/users/preferences/digest": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get Digest Settings",
+        "description": "Get user digest settings",
+        "operationId": "get_digest_settings_api_v1_users_preferences_digest_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "409": {
+            "description": "User already exists"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Update Digest Settings",
+        "description": "Update user digest settings",
+        "operationId": "update_digest_settings_api_v1_users_preferences_digest_put",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DigestSettingsUpdate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "409": {
+            "description": "User already exists"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/digest/daily": {
+      "get": {
+        "tags": [
+          "Digest"
+        ],
+        "summary": "Get Daily Digest",
+        "description": "Get daily digest for current user",
+        "operationId": "get_daily_digest_api_v1_digest_daily_get",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "tracked_only",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "description": "Filter by tracked companies only",
+              "default": false,
+              "title": "Tracked Only"
+            },
+            "description": "Filter by tracked companies only"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Digest not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/digest/weekly": {
+      "get": {
+        "tags": [
+          "Digest"
+        ],
+        "summary": "Get Weekly Digest",
+        "description": "Get weekly digest for current user",
+        "operationId": "get_weekly_digest_api_v1_digest_weekly_get",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "tracked_only",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "description": "Filter by tracked companies only",
+              "default": false,
+              "title": "Tracked Only"
+            },
+            "description": "Filter by tracked companies only"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Digest not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/digest/custom": {
+      "get": {
+        "tags": [
+          "Digest"
+        ],
+        "summary": "Get Custom Digest",
+        "description": "Get custom digest for date range",
+        "operationId": "get_custom_digest_api_v1_digest_custom_get",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Start date (YYYY-MM-DD)",
+              "title": "Start Date"
+            },
+            "description": "Start date (YYYY-MM-DD)"
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "End date (YYYY-MM-DD)",
+              "title": "End Date"
+            },
+            "description": "End date (YYYY-MM-DD)"
+          },
+          {
+            "name": "tracked_only",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "description": "Filter by tracked companies only",
+              "default": false,
+              "title": "Tracked Only"
+            },
+            "description": "Filter by tracked companies only"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Digest not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/digest/generate": {
+      "post": {
+        "tags": [
+          "Digest"
+        ],
+        "summary": "Generate Digest Async",
+        "description": "Trigger async digest generation (background task)",
+        "operationId": "generate_digest_async_api_v1_digest_generate_post",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "digest_type",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Type of digest: daily, weekly, custom",
+              "title": "Digest Type"
+            },
+            "description": "Type of digest: daily, weekly, custom"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Digest not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/companies/": {
+      "get": {
+        "tags": [
+          "Companies"
+        ],
+        "summary": "Get Companies",
+        "description": "Get list of companies with optional search",
+        "operationId": "get_companies_api_v1_companies__get",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Search companies by name",
+              "title": "Search"
+            },
+            "description": "Search companies by name"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 200,
+              "minimum": 1,
+              "description": "Number of companies to return",
+              "default": 100,
+              "title": "Limit"
+            },
+            "description": "Number of companies to return"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of companies to skip",
+              "default": 0,
+              "title": "Offset"
+            },
+            "description": "Number of companies to skip"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Company not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Companies"
+        ],
+        "summary": "Create Company",
+        "description": "Create a new company or update existing one with news items\n\nTODO: Add validation for company data\nTODO: Add rate limiting for company creation\nTODO: Add notification when company is added/updated",
+        "operationId": "create_company_api_v1_companies__post",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true,
+                "title": "Request"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Company not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/companies/{company_id}": {
+      "get": {
+        "tags": [
+          "Companies"
+        ],
+        "summary": "Get Company",
+        "description": "Get a specific company by ID",
+        "operationId": "get_company_api_v1_companies__company_id__get",
+        "parameters": [
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Company Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Company not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/companies/scan": {
+      "post": {
+        "tags": [
+          "Companies"
+        ],
+        "summary": "Scan Company",
+        "description": "Scan a company website for news and return preview\n\nTODO: Add async version with Celery task for large sites (>50 articles)\nTODO: Add progress tracking for long-running scans\nTODO: Add caching for repeated scans of same URL",
+        "operationId": "scan_company_api_v1_companies_scan_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "additionalProperties": true,
+                "type": "object",
+                "title": "Request"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Company not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/notifications/": {
+      "get": {
+        "tags": [
+          "Notifications"
+        ],
+        "summary": "Get Notifications",
+        "description": "Get user notifications with pagination",
+        "operationId": "get_notifications_api_v1_notifications__get",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "skip",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "Skip"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 20,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "unread_only",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Unread Only"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Notification not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/notifications/unread": {
+      "get": {
+        "tags": [
+          "Notifications"
+        ],
+        "summary": "Get Unread Notifications",
+        "description": "Get unread notifications count and latest items",
+        "operationId": "get_unread_notifications_api_v1_notifications_unread_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Notification not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/notifications/{notification_id}/read": {
+      "put": {
+        "tags": [
+          "Notifications"
+        ],
+        "summary": "Mark Notification As Read",
+        "description": "Mark a notification as read",
+        "operationId": "mark_notification_as_read_api_v1_notifications__notification_id__read_put",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "notification_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Notification Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Notification not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/notifications/mark-all-read": {
+      "put": {
+        "tags": [
+          "Notifications"
+        ],
+        "summary": "Mark All Notifications As Read",
+        "description": "Mark all notifications as read for current user",
+        "operationId": "mark_all_notifications_as_read_api_v1_notifications_mark_all_read_put",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Notification not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/notifications/{notification_id}": {
+      "delete": {
+        "tags": [
+          "Notifications"
+        ],
+        "summary": "Delete Notification",
+        "description": "Delete a notification",
+        "operationId": "delete_notification_api_v1_notifications__notification_id__delete",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "notification_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Notification Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Notification not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/notifications/settings": {
+      "get": {
+        "tags": [
+          "Notifications"
+        ],
+        "summary": "Get Notification Settings",
+        "description": "Get user notification settings",
+        "operationId": "get_notification_settings_api_v1_notifications_settings_get",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Notification not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Notifications"
+        ],
+        "summary": "Update Notification Settings",
+        "description": "Update user notification settings",
+        "operationId": "update_notification_settings_api_v1_notifications_settings_put",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "enabled",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Enabled"
+            }
+          },
+          {
+            "name": "min_priority_score",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Min Priority Score"
+            }
+          },
+          {
+            "name": "company_alerts",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Company Alerts"
+            }
+          },
+          {
+            "name": "category_trends",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Category Trends"
+            }
+          },
+          {
+            "name": "keyword_alerts",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Keyword Alerts"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "additionalProperties": true
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Notification Types"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Notification not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/schedules/crawl": {
+      "get": {
+        "tags": [
+          "Schedules",
+          "Schedules"
+        ],
+        "summary": "List crawl schedules",
+        "description": "Return all active crawl schedules.",
+        "operationId": "list_crawl_schedules_api_v1_schedules_crawl_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/CrawlScheduleResponse"
+                  },
+                  "type": "array",
+                  "title": "Response List Crawl Schedules Api V1 Schedules Crawl Get"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/schedules/crawl/{scope}/{scope_value}": {
+      "put": {
+        "tags": [
+          "Schedules",
+          "Schedules"
+        ],
+        "summary": "Upsert crawl schedule",
+        "description": "Create or update schedule for given scope.",
+        "operationId": "upsert_crawl_schedule_api_v1_schedules_crawl__scope___scope_value__put",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "scope",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Crawl scope (source_type, company, source)",
+              "title": "Scope"
+            },
+            "description": "Crawl scope (source_type, company, source)"
+          },
+          {
+            "name": "scope_value",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Scope value identifier",
+              "title": "Scope Value"
+            },
+            "description": "Scope value identifier"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrawlScheduleUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CrawlScheduleResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/schedules/crawl/hydrate": {
+      "post": {
+        "tags": [
+          "Schedules",
+          "Schedules"
+        ],
+        "summary": "Ensure source profiles exist",
+        "description": "Ensure that source profiles exist for all companies and supported source types.",
+        "operationId": "hydrate_source_profiles_api_v1_schedules_crawl_hydrate_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Hydrate Source Profiles Api V1 Schedules Crawl Hydrate Post"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/competitors/compare": {
+      "post": {
+        "tags": [
+          "Competitors"
+        ],
+        "summary": "Compare Companies",
+        "description": "Compare multiple companies\n\nRequest body:\n{\n    \"company_ids\": [\"uuid1\", \"uuid2\", \"uuid3\"],\n    \"date_from\": \"2025-01-01\",  // optional\n    \"date_to\": \"2025-01-31\",     // optional\n    \"name\": \"Q1 2025 Comparison\" // optional\n}",
+        "operationId": "compare_companies_api_v1_competitors_compare_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "additionalProperties": true,
+                "type": "object",
+                "title": "Request Data"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Competitor not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/competitors/comparisons": {
+      "get": {
+        "tags": [
+          "Competitors"
+        ],
+        "summary": "Get User Comparisons",
+        "description": "Get user's saved comparisons",
+        "operationId": "get_user_comparisons_api_v1_competitors_comparisons_get",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 10,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Competitor not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/competitors/comparisons/{comparison_id}": {
+      "get": {
+        "tags": [
+          "Competitors"
+        ],
+        "summary": "Get Comparison",
+        "description": "Get specific comparison details",
+        "operationId": "get_comparison_api_v1_competitors_comparisons__comparison_id__get",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "comparison_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Comparison Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Competitor not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Competitors"
+        ],
+        "summary": "Delete Comparison",
+        "description": "Delete a comparison",
+        "operationId": "delete_comparison_api_v1_competitors_comparisons__comparison_id__delete",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "comparison_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Comparison Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Competitor not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/competitors/activity/{company_id}": {
+      "get": {
+        "tags": [
+          "Competitors"
+        ],
+        "summary": "Get Company Activity",
+        "description": "Get activity metrics for a specific company",
+        "operationId": "get_company_activity_api_v1_competitors_activity__company_id__get",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Company Id"
+            }
+          },
+          {
+            "name": "days",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 30,
+              "title": "Days"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Competitor not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/competitors/suggest/{company_id}": {
+      "get": {
+        "tags": [
+          "Competitors"
+        ],
+        "summary": "Suggest Competitors",
+        "description": "Автоматически подобрать конкурентов\n\nQuery params:\n    limit: сколько конкурентов вернуть (default: 5, max: 10)\n    days: за какой период анализировать (default: 30)",
+        "operationId": "suggest_competitors_api_v1_competitors_suggest__company_id__get",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Company Id"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 5,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "days",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 30,
+              "title": "Days"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Competitor not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/competitors/themes": {
+      "post": {
+        "tags": [
+          "Competitors"
+        ],
+        "summary": "Analyze Themes",
+        "description": "Анализ новостных тем для списка компаний\n\nBody:\n    {\n        \"company_ids\": [\"uuid1\", \"uuid2\", \"uuid3\"],\n        \"date_from\": \"2025-01-01\",  // optional\n        \"date_to\": \"2025-01-31\"     // optional\n    }",
+        "operationId": "analyze_themes_api_v1_competitors_themes_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "additionalProperties": true,
+                "type": "object",
+                "title": "Request Data"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Competitor not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/competitors/changes/{company_id}": {
+      "get": {
+        "tags": [
+          "Competitors"
+        ],
+        "summary": "List Change Events",
+        "operationId": "list_change_events_api_v1_competitors_changes__company_id__get",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Company Id"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Status"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Competitor not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/competitors/changes/{event_id}/recompute": {
+      "post": {
+        "tags": [
+          "Competitors"
+        ],
+        "summary": "Recompute Change Event",
+        "operationId": "recompute_change_event_api_v1_competitors_changes__event_id__recompute_post",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "event_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Event Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Competitor not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/telegram/webhook": {
+      "get": {
+        "tags": [
+          "Telegram"
+        ],
+        "summary": "Telegram Webhook Health Check",
+        "description": "Health check endpoint for Telegram webhook\nTelegram sends POST requests, but GET can be used for checking if endpoint is accessible",
+        "operationId": "telegram_webhook_health_check_api_v1_telegram_webhook_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Telegram API error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Telegram"
+        ],
+        "summary": "Telegram Webhook",
+        "description": "Handle Telegram webhook updates",
+        "operationId": "telegram_webhook_api_v1_telegram_webhook_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Telegram API error"
+          }
+        }
+      }
+    },
+    "/api/v1/telegram/set-webhook": {
+      "get": {
+        "tags": [
+          "Telegram"
+        ],
+        "summary": "Set Telegram Webhook",
+        "description": "Set Telegram webhook URL",
+        "operationId": "set_telegram_webhook_api_v1_telegram_set_webhook_get",
+        "parameters": [
+          {
+            "name": "webhook_url",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "https://yourdomain.com/api/v1/telegram/webhook",
+              "title": "Webhook Url"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Telegram API error"
+          }
+        }
+      }
+    },
+    "/api/v1/telegram/delete-webhook": {
+      "get": {
+        "tags": [
+          "Telegram"
+        ],
+        "summary": "Delete Telegram Webhook",
+        "description": "Delete Telegram webhook",
+        "operationId": "delete_telegram_webhook_api_v1_telegram_delete_webhook_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Telegram API error"
+          }
+        }
+      }
+    },
+    "/api/v1/telegram/get-webhook-info": {
+      "get": {
+        "tags": [
+          "Telegram"
+        ],
+        "summary": "Get Webhook Info",
+        "description": "Get current webhook information",
+        "operationId": "get_webhook_info_api_v1_telegram_get_webhook_info_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Telegram API error"
+          }
+        }
+      }
+    },
+    "/api/v1/telegram/send-test-message": {
+      "post": {
+        "tags": [
+          "Telegram"
+        ],
+        "summary": "Send Test Message",
+        "description": "Send test message to specified chat",
+        "operationId": "send_test_message_api_v1_telegram_send_test_message_post",
+        "parameters": [
+          {
+            "name": "chat_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Chat Id"
+            }
+          },
+          {
+            "name": "message",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "🧪 Test message from AI Competitor Insight Hub",
+              "title": "Message"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Telegram API error"
+          }
+        }
+      }
+    },
+    "/api/v1/telegram/check-user/{chat_id}": {
+      "get": {
+        "tags": [
+          "Telegram"
+        ],
+        "summary": "Check Telegram User",
+        "description": "Diagnostic endpoint to check Telegram user configuration",
+        "operationId": "check_telegram_user_api_v1_telegram_check_user__chat_id__get",
+        "parameters": [
+          {
+            "name": "chat_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Chat Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Telegram API error"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/scrapers": {
+      "get": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Get Scrapers Status",
+        "description": "Get status of all scrapers",
+        "operationId": "get_scrapers_status_api_v1_admin_scrapers_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Admin access required"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/scrapers/{scraper_id}/run": {
+      "post": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Run Scraper",
+        "description": "Run a specific scraper",
+        "operationId": "run_scraper_api_v1_admin_scrapers__scraper_id__run_post",
+        "parameters": [
+          {
+            "name": "scraper_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Scraper Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Admin access required"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/scrapers/run-all": {
+      "post": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Run All Scrapers",
+        "description": "Run all available scrapers",
+        "operationId": "run_all_scrapers_api_v1_admin_scrapers_run_all_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Admin access required"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/scrapers/{scraper_id}/status": {
+      "get": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Get Scraper Status",
+        "description": "Get status of a specific scraper",
+        "operationId": "get_scraper_status_api_v1_admin_scrapers__scraper_id__status_get",
+        "parameters": [
+          {
+            "name": "scraper_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Scraper Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "Admin access required"
+          }
+        }
+      }
+    },
+    "/api/v1/health": {
+      "get": {
+        "summary": "Health Check",
+        "description": "Health check endpoint for monitoring\n\nReturns the current status of the API service.",
+        "operationId": "health_check_api_v1_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/v2/analytics/companies/{company_id}/snapshots": {
+      "get": {
+        "tags": [
+          "API v2",
+          "Analytics"
+        ],
+        "summary": "Get analytics snapshots for a company",
+        "operationId": "get_company_snapshots_api_v2_analytics_companies__company_id__snapshots_get",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Company Id"
+            }
+          },
+          {
+            "name": "period",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/AnalyticsPeriod",
+              "default": "daily"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 180,
+              "minimum": 1,
+              "default": 30,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SnapshotSeriesResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/analytics/companies/{company_id}/impact/latest": {
+      "get": {
+        "tags": [
+          "API v2",
+          "Analytics"
+        ],
+        "summary": "Get latest analytics snapshot",
+        "operationId": "get_latest_snapshot_api_v2_analytics_companies__company_id__impact_latest_get",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Company Id"
+            }
+          },
+          {
+            "name": "period",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/AnalyticsPeriod",
+              "default": "daily"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompanyAnalyticsSnapshotResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/analytics/companies/{company_id}/recompute": {
+      "post": {
+        "tags": [
+          "API v2",
+          "Analytics"
+        ],
+        "summary": "Trigger analytics recomputation",
+        "operationId": "trigger_recompute_api_v2_analytics_companies__company_id__recompute_post",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Company Id"
+            }
+          },
+          {
+            "name": "period",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/AnalyticsPeriod",
+              "default": "daily"
+            }
+          },
+          {
+            "name": "lookback",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 180,
+              "minimum": 1,
+              "default": 30,
+              "title": "Lookback"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Trigger Recompute Api V2 Analytics Companies  Company Id  Recompute Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/analytics/companies/{company_id}/graph/sync": {
+      "post": {
+        "tags": [
+          "API v2",
+          "Analytics"
+        ],
+        "summary": "Trigger knowledge graph sync",
+        "operationId": "trigger_graph_sync_api_v2_analytics_companies__company_id__graph_sync_post",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Company Id"
+            }
+          },
+          {
+            "name": "period_start",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Period start in ISO format",
+              "title": "Period Start"
+            },
+            "description": "Period start in ISO format"
+          },
+          {
+            "name": "period",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/AnalyticsPeriod",
+              "default": "daily"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Trigger Graph Sync Api V2 Analytics Companies  Company Id  Graph Sync Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/analytics/graph": {
+      "get": {
+        "tags": [
+          "API v2",
+          "Analytics"
+        ],
+        "summary": "Get analytics knowledge graph edges",
+        "operationId": "get_graph_edges_api_v2_analytics_graph_get",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "company_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Company Id"
+            }
+          },
+          {
+            "name": "relationship",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/RelationshipType"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Relationship"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 1000,
+              "minimum": 1,
+              "default": 200,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/KnowledgeGraphEdgeResponse"
+                  },
+                  "title": "Response Get Graph Edges Api V2 Analytics Graph Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/analytics/reports/presets": {
+      "get": {
+        "tags": [
+          "API v2",
+          "Analytics"
+        ],
+        "summary": "List analytics report presets",
+        "operationId": "list_report_presets_api_v2_analytics_reports_presets_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ReportPresetResponse"
+                  },
+                  "type": "array",
+                  "title": "Response List Report Presets Api V2 Analytics Reports Presets Get"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "API v2",
+          "Analytics"
+        ],
+        "summary": "Create report preset",
+        "operationId": "create_report_preset_api_v2_analytics_reports_presets_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReportPresetCreateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportPresetResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v2/analytics/comparisons": {
+      "post": {
+        "tags": [
+          "API v2",
+          "Analytics"
+        ],
+        "summary": "Build analytics comparison overview",
+        "operationId": "build_comparison_overview_api_v2_analytics_comparisons_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ComparisonRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ComparisonResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v2/analytics/export": {
+      "post": {
+        "tags": [
+          "API v2",
+          "Analytics"
+        ],
+        "summary": "Build analytics export payload",
+        "operationId": "build_export_payload_api_v2_analytics_export_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AnalyticsExportRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnalyticsExportResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/health": {
+      "get": {
+        "summary": "Health Check",
+        "description": "Health check endpoint",
+        "operationId": "health_check_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/migrations/status": {
+      "get": {
+        "summary": "Migration Status",
+        "description": "Check migration status",
+        "operationId": "migration_status_migrations_status_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "summary": "Root",
+        "description": "Root endpoint",
+        "operationId": "root__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AggregatedImpactComponent": {
+        "properties": {
+          "component_type": {
+            "type": "string",
+            "title": "Component Type"
+          },
+          "score_contribution": {
+            "type": "number",
+            "title": "Score Contribution"
+          },
+          "weight": {
+            "type": "number",
+            "title": "Weight"
+          }
+        },
+        "type": "object",
+        "required": [
+          "component_type",
+          "score_contribution",
+          "weight"
+        ],
+        "title": "AggregatedImpactComponent",
+        "description": "Aggregated impact component entry across companies."
+      },
+      "AnalyticsEntityType": {
+        "type": "string",
+        "enum": [
+          "company",
+          "news_item",
+          "change_event",
+          "pricing_snapshot",
+          "product",
+          "feature",
+          "team",
+          "metric",
+          "external"
+        ],
+        "title": "AnalyticsEntityType",
+        "description": "Entities supported by the analytics knowledge graph."
+      },
+      "AnalyticsExportRequest": {
+        "properties": {
+          "subjects": {
+            "items": {
+              "$ref": "#/components/schemas/ComparisonSubjectRequest"
+            },
+            "type": "array",
+            "title": "Subjects"
+          },
+          "period": {
+            "$ref": "#/components/schemas/AnalyticsPeriod",
+            "default": "daily"
+          },
+          "lookback": {
+            "type": "integer",
+            "maximum": 365.0,
+            "minimum": 1.0,
+            "title": "Lookback",
+            "default": 30
+          },
+          "date_from": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Date From"
+          },
+          "date_to": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Date To"
+          },
+          "filters": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ComparisonFilters"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "include_series": {
+            "type": "boolean",
+            "title": "Include Series",
+            "default": true
+          },
+          "include_components": {
+            "type": "boolean",
+            "title": "Include Components",
+            "default": true
+          },
+          "include_change_log": {
+            "type": "boolean",
+            "title": "Include Change Log",
+            "default": true
+          },
+          "include_knowledge_graph": {
+            "type": "boolean",
+            "title": "Include Knowledge Graph",
+            "default": true
+          },
+          "change_log_limit": {
+            "type": "integer",
+            "maximum": 50.0,
+            "minimum": 1.0,
+            "title": "Change Log Limit",
+            "default": 5
+          },
+          "knowledge_graph_limit": {
+            "type": "integer",
+            "maximum": 200.0,
+            "minimum": 1.0,
+            "title": "Knowledge Graph Limit",
+            "default": 10
+          },
+          "top_news_limit": {
+            "type": "integer",
+            "maximum": 20.0,
+            "minimum": 1.0,
+            "title": "Top News Limit",
+            "default": 5
+          },
+          "export_format": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Export Format"
+          },
+          "include": {
+            "$ref": "#/components/schemas/ExportIncludeOptions"
+          }
+        },
+        "type": "object",
+        "required": [
+          "subjects"
+        ],
+        "title": "AnalyticsExportRequest",
+        "description": "Export payload request inherits comparison options."
+      },
+      "AnalyticsExportResponse": {
+        "properties": {
+          "version": {
+            "type": "string",
+            "title": "Version"
+          },
+          "generated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Generated At"
+          },
+          "export_format": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Export Format"
+          },
+          "timeframe": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Timeframe"
+          },
+          "comparison": {
+            "$ref": "#/components/schemas/ComparisonResponse"
+          },
+          "notification_settings": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/NotificationSettingsSummary"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "presets": {
+            "items": {
+              "$ref": "#/components/schemas/ReportPresetResponse"
+            },
+            "type": "array",
+            "title": "Presets"
+          }
+        },
+        "type": "object",
+        "required": [
+          "version",
+          "generated_at",
+          "timeframe",
+          "comparison"
+        ],
+        "title": "AnalyticsExportResponse",
+        "description": "Backend export payload for analytics comparison."
+      },
+      "AnalyticsPeriod": {
+        "type": "string",
+        "enum": [
+          "daily",
+          "weekly",
+          "monthly"
+        ],
+        "title": "AnalyticsPeriod",
+        "description": "Supported aggregation periods for analytics snapshots."
+      },
+      "AuthResponse": {
+        "properties": {
+          "access_token": {
+            "type": "string",
+            "title": "Access Token"
+          },
+          "refresh_token": {
+            "type": "string",
+            "title": "Refresh Token"
+          },
+          "token_type": {
+            "type": "string",
+            "title": "Token Type",
+            "default": "bearer"
+          },
+          "user": {
+            "$ref": "#/components/schemas/UserResponse"
+          }
+        },
+        "type": "object",
+        "required": [
+          "access_token",
+          "refresh_token",
+          "user"
+        ],
+        "title": "AuthResponse",
+        "description": "Authentication response schema"
+      },
+      "Body_update_user_preferences_api_v1_users_preferences_put": {
+        "properties": {
+          "subscribed_companies": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Subscribed Companies"
+          },
+          "interested_categories": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Interested Categories"
+          },
+          "keywords": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Keywords"
+          }
+        },
+        "type": "object",
+        "title": "Body_update_user_preferences_api_v1_users_preferences_put"
+      },
+      "ChangeNotificationStatus": {
+        "type": "string",
+        "enum": [
+          "pending",
+          "sent",
+          "failed",
+          "skipped"
+        ],
+        "title": "ChangeNotificationStatus",
+        "description": "Notification delivery status for change events."
+      },
+      "ChangeProcessingStatus": {
+        "type": "string",
+        "enum": [
+          "success",
+          "skipped",
+          "error"
+        ],
+        "title": "ChangeProcessingStatus",
+        "description": "Status of change detection processing."
+      },
+      "CompanyAnalyticsSnapshotResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "company_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Company Id"
+          },
+          "period": {
+            "$ref": "#/components/schemas/AnalyticsPeriod"
+          },
+          "period_start": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Period Start"
+          },
+          "period_end": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Period End"
+          },
+          "news_total": {
+            "type": "integer",
+            "title": "News Total"
+          },
+          "news_positive": {
+            "type": "integer",
+            "title": "News Positive"
+          },
+          "news_negative": {
+            "type": "integer",
+            "title": "News Negative"
+          },
+          "news_neutral": {
+            "type": "integer",
+            "title": "News Neutral"
+          },
+          "news_average_sentiment": {
+            "type": "number",
+            "title": "News Average Sentiment"
+          },
+          "news_average_priority": {
+            "type": "number",
+            "title": "News Average Priority"
+          },
+          "pricing_changes": {
+            "type": "integer",
+            "title": "Pricing Changes"
+          },
+          "feature_updates": {
+            "type": "integer",
+            "title": "Feature Updates"
+          },
+          "funding_events": {
+            "type": "integer",
+            "title": "Funding Events"
+          },
+          "impact_score": {
+            "type": "number",
+            "title": "Impact Score"
+          },
+          "innovation_velocity": {
+            "type": "number",
+            "title": "Innovation Velocity"
+          },
+          "trend_delta": {
+            "type": "number",
+            "title": "Trend Delta"
+          },
+          "metric_breakdown": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Metric Breakdown"
+          },
+          "components": {
+            "items": {
+              "$ref": "#/components/schemas/ImpactComponentResponse"
+            },
+            "type": "array",
+            "title": "Components"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "company_id",
+          "period",
+          "period_start",
+          "period_end",
+          "news_total",
+          "news_positive",
+          "news_negative",
+          "news_neutral",
+          "news_average_sentiment",
+          "news_average_priority",
+          "pricing_changes",
+          "feature_updates",
+          "funding_events",
+          "impact_score",
+          "innovation_velocity",
+          "trend_delta"
+        ],
+        "title": "CompanyAnalyticsSnapshotResponse",
+        "description": "Aggregated analytics snapshot response."
+      },
+      "CompanyAnalyticsSnapshotSummary": {
+        "properties": {
+          "period_start": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Period Start"
+          },
+          "impact_score": {
+            "type": "number",
+            "title": "Impact Score"
+          },
+          "innovation_velocity": {
+            "type": "number",
+            "title": "Innovation Velocity"
+          },
+          "trend_delta": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Trend Delta"
+          },
+          "news_total": {
+            "type": "integer",
+            "title": "News Total"
+          },
+          "news_positive": {
+            "type": "integer",
+            "title": "News Positive"
+          },
+          "news_negative": {
+            "type": "integer",
+            "title": "News Negative"
+          },
+          "news_neutral": {
+            "type": "integer",
+            "title": "News Neutral"
+          },
+          "pricing_changes": {
+            "type": "integer",
+            "title": "Pricing Changes"
+          },
+          "feature_updates": {
+            "type": "integer",
+            "title": "Feature Updates"
+          },
+          "funding_events": {
+            "type": "integer",
+            "title": "Funding Events"
+          },
+          "components": {
+            "items": {
+              "$ref": "#/components/schemas/AggregatedImpactComponent"
+            },
+            "type": "array",
+            "title": "Components"
+          }
+        },
+        "type": "object",
+        "required": [
+          "period_start",
+          "impact_score",
+          "innovation_velocity",
+          "news_total",
+          "news_positive",
+          "news_negative",
+          "news_neutral",
+          "pricing_changes",
+          "feature_updates",
+          "funding_events"
+        ],
+        "title": "CompanyAnalyticsSnapshotSummary",
+        "description": "Aggregated snapshot summary for subject."
+      },
+      "ComparisonCompanySummary": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "category": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Category"
+          },
+          "logo_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Logo Url"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name"
+        ],
+        "title": "ComparisonCompanySummary",
+        "description": "Lightweight company descriptor used in comparison results."
+      },
+      "ComparisonFilters": {
+        "properties": {
+          "topics": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Topics"
+          },
+          "sentiments": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Sentiments"
+          },
+          "source_types": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Source Types"
+          },
+          "min_priority": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Min Priority"
+          }
+        },
+        "type": "object",
+        "title": "ComparisonFilters",
+        "description": "Public filters applied to comparison subjects."
+      },
+      "ComparisonMetricSummary": {
+        "properties": {
+          "subject_key": {
+            "type": "string",
+            "title": "Subject Key"
+          },
+          "subject_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Subject Id"
+          },
+          "news_volume": {
+            "type": "integer",
+            "title": "News Volume"
+          },
+          "activity_score": {
+            "type": "number",
+            "title": "Activity Score"
+          },
+          "avg_priority": {
+            "type": "number",
+            "title": "Avg Priority"
+          },
+          "impact_score": {
+            "type": "number",
+            "title": "Impact Score"
+          },
+          "trend_delta": {
+            "type": "number",
+            "title": "Trend Delta"
+          },
+          "innovation_velocity": {
+            "type": "number",
+            "title": "Innovation Velocity"
+          },
+          "sentiment_distribution": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Sentiment Distribution"
+          },
+          "category_distribution": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Category Distribution"
+          },
+          "topic_distribution": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Topic Distribution"
+          },
+          "daily_activity": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Daily Activity"
+          },
+          "top_news": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Top News"
+          },
+          "impact_components": {
+            "items": {
+              "$ref": "#/components/schemas/AggregatedImpactComponent"
+            },
+            "type": "array",
+            "title": "Impact Components"
+          },
+          "snapshot": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CompanyAnalyticsSnapshotSummary"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "subject_key",
+          "subject_id",
+          "news_volume",
+          "activity_score",
+          "avg_priority",
+          "impact_score",
+          "trend_delta",
+          "innovation_velocity"
+        ],
+        "title": "ComparisonMetricSummary",
+        "description": "Aggregated metric summary per subject."
+      },
+      "ComparisonRequest": {
+        "properties": {
+          "subjects": {
+            "items": {
+              "$ref": "#/components/schemas/ComparisonSubjectRequest"
+            },
+            "type": "array",
+            "title": "Subjects"
+          },
+          "period": {
+            "$ref": "#/components/schemas/AnalyticsPeriod",
+            "default": "daily"
+          },
+          "lookback": {
+            "type": "integer",
+            "maximum": 365.0,
+            "minimum": 1.0,
+            "title": "Lookback",
+            "default": 30
+          },
+          "date_from": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Date From"
+          },
+          "date_to": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Date To"
+          },
+          "filters": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ComparisonFilters"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "include_series": {
+            "type": "boolean",
+            "title": "Include Series",
+            "default": true
+          },
+          "include_components": {
+            "type": "boolean",
+            "title": "Include Components",
+            "default": true
+          },
+          "include_change_log": {
+            "type": "boolean",
+            "title": "Include Change Log",
+            "default": true
+          },
+          "include_knowledge_graph": {
+            "type": "boolean",
+            "title": "Include Knowledge Graph",
+            "default": true
+          },
+          "change_log_limit": {
+            "type": "integer",
+            "maximum": 50.0,
+            "minimum": 1.0,
+            "title": "Change Log Limit",
+            "default": 5
+          },
+          "knowledge_graph_limit": {
+            "type": "integer",
+            "maximum": 200.0,
+            "minimum": 1.0,
+            "title": "Knowledge Graph Limit",
+            "default": 10
+          },
+          "top_news_limit": {
+            "type": "integer",
+            "maximum": 20.0,
+            "minimum": 1.0,
+            "title": "Top News Limit",
+            "default": 5
+          }
+        },
+        "type": "object",
+        "required": [
+          "subjects"
+        ],
+        "title": "ComparisonRequest",
+        "description": "Comparison query payload."
+      },
+      "ComparisonResponse": {
+        "properties": {
+          "generated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Generated At"
+          },
+          "period": {
+            "$ref": "#/components/schemas/AnalyticsPeriod"
+          },
+          "lookback": {
+            "type": "integer",
+            "title": "Lookback"
+          },
+          "date_from": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Date From"
+          },
+          "date_to": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Date To"
+          },
+          "subjects": {
+            "items": {
+              "$ref": "#/components/schemas/ComparisonSubjectSummary"
+            },
+            "type": "array",
+            "title": "Subjects"
+          },
+          "metrics": {
+            "items": {
+              "$ref": "#/components/schemas/ComparisonMetricSummary"
+            },
+            "type": "array",
+            "title": "Metrics"
+          },
+          "series": {
+            "items": {
+              "$ref": "#/components/schemas/ComparisonSeries"
+            },
+            "type": "array",
+            "title": "Series"
+          },
+          "change_log": {
+            "additionalProperties": {
+              "items": {
+                "$ref": "#/components/schemas/CompetitorChangeEventSchema"
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Change Log"
+          },
+          "knowledge_graph": {
+            "additionalProperties": {
+              "items": {
+                "$ref": "#/components/schemas/KnowledgeGraphEdgeResponse"
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Knowledge Graph"
+          }
+        },
+        "type": "object",
+        "required": [
+          "generated_at",
+          "period",
+          "lookback",
+          "date_from",
+          "date_to",
+          "subjects",
+          "metrics"
+        ],
+        "title": "ComparisonResponse",
+        "description": "Full comparison response payload."
+      },
+      "ComparisonSeries": {
+        "properties": {
+          "subject_key": {
+            "type": "string",
+            "title": "Subject Key"
+          },
+          "subject_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Subject Id"
+          },
+          "snapshots": {
+            "items": {
+              "$ref": "#/components/schemas/ComparisonSeriesPoint"
+            },
+            "type": "array",
+            "title": "Snapshots"
+          }
+        },
+        "type": "object",
+        "required": [
+          "subject_key",
+          "subject_id"
+        ],
+        "title": "ComparisonSeries",
+        "description": "Series response for subject."
+      },
+      "ComparisonSeriesPoint": {
+        "properties": {
+          "period_start": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Period Start"
+          },
+          "impact_score": {
+            "type": "number",
+            "title": "Impact Score"
+          },
+          "innovation_velocity": {
+            "type": "number",
+            "title": "Innovation Velocity"
+          },
+          "trend_delta": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Trend Delta"
+          },
+          "news_total": {
+            "type": "integer",
+            "title": "News Total"
+          },
+          "news_positive": {
+            "type": "integer",
+            "title": "News Positive"
+          },
+          "news_negative": {
+            "type": "integer",
+            "title": "News Negative"
+          },
+          "news_neutral": {
+            "type": "integer",
+            "title": "News Neutral"
+          },
+          "pricing_changes": {
+            "type": "integer",
+            "title": "Pricing Changes"
+          },
+          "feature_updates": {
+            "type": "integer",
+            "title": "Feature Updates"
+          },
+          "funding_events": {
+            "type": "integer",
+            "title": "Funding Events"
+          }
+        },
+        "type": "object",
+        "required": [
+          "period_start",
+          "impact_score",
+          "innovation_velocity",
+          "news_total",
+          "news_positive",
+          "news_negative",
+          "news_neutral",
+          "pricing_changes",
+          "feature_updates",
+          "funding_events"
+        ],
+        "title": "ComparisonSeriesPoint",
+        "description": "Single data point for multi-subject series."
+      },
+      "ComparisonSubjectRequest": {
+        "properties": {
+          "subject_type": {
+            "type": "string",
+            "enum": [
+              "company",
+              "preset"
+            ],
+            "title": "Subject Type"
+          },
+          "reference_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Reference Id"
+          },
+          "label": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Label"
+          },
+          "color": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Color"
+          }
+        },
+        "type": "object",
+        "required": [
+          "subject_type",
+          "reference_id"
+        ],
+        "title": "ComparisonSubjectRequest",
+        "description": "Comparison subject definition from client."
+      },
+      "ComparisonSubjectSummary": {
+        "properties": {
+          "subject_key": {
+            "type": "string",
+            "title": "Subject Key"
+          },
+          "subject_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Subject Id"
+          },
+          "subject_type": {
+            "type": "string",
+            "enum": [
+              "company",
+              "preset"
+            ],
+            "title": "Subject Type"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "company_ids": {
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "type": "array",
+            "title": "Company Ids"
+          },
+          "preset_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Preset Id"
+          },
+          "color": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Color"
+          },
+          "companies": {
+            "items": {
+              "$ref": "#/components/schemas/ComparisonCompanySummary"
+            },
+            "type": "array",
+            "title": "Companies"
+          },
+          "filters": {
+            "$ref": "#/components/schemas/ComparisonFilters"
+          }
+        },
+        "type": "object",
+        "required": [
+          "subject_key",
+          "subject_id",
+          "subject_type",
+          "label",
+          "company_ids"
+        ],
+        "title": "ComparisonSubjectSummary",
+        "description": "Resolved comparison subject metadata."
+      },
+      "CompetitorChangeEventSchema": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "company_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Company Id"
+          },
+          "source_type": {
+            "$ref": "#/components/schemas/SourceType"
+          },
+          "change_summary": {
+            "type": "string",
+            "title": "Change Summary"
+          },
+          "changed_fields": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Changed Fields"
+          },
+          "raw_diff": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Raw Diff"
+          },
+          "detected_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Detected At"
+          },
+          "processing_status": {
+            "$ref": "#/components/schemas/ChangeProcessingStatus"
+          },
+          "notification_status": {
+            "$ref": "#/components/schemas/ChangeNotificationStatus"
+          },
+          "current_snapshot": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SnapshotReferenceSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "previous_snapshot": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SnapshotReferenceSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "company_id",
+          "source_type",
+          "change_summary",
+          "detected_at",
+          "processing_status",
+          "notification_status"
+        ],
+        "title": "CompetitorChangeEventSchema"
+      },
+      "CrawlMode": {
+        "type": "string",
+        "enum": [
+          "always_update",
+          "change_detection"
+        ],
+        "title": "CrawlMode",
+        "description": "Mode of crawling behaviour."
+      },
+      "CrawlScheduleResponse": {
+        "properties": {
+          "mode": {
+            "$ref": "#/components/schemas/CrawlMode",
+            "description": "Crawl behaviour mode",
+            "default": "always_update"
+          },
+          "frequency_seconds": {
+            "type": "integer",
+            "maximum": 86400.0,
+            "minimum": 60.0,
+            "title": "Frequency Seconds",
+            "description": "Frequency in seconds",
+            "default": 900
+          },
+          "jitter_seconds": {
+            "type": "integer",
+            "maximum": 43200.0,
+            "minimum": 0.0,
+            "title": "Jitter Seconds",
+            "description": "Jitter applied to schedule",
+            "default": 300
+          },
+          "max_retries": {
+            "type": "integer",
+            "maximum": 10.0,
+            "minimum": 0.0,
+            "title": "Max Retries",
+            "description": "Maximum retry attempts",
+            "default": 3
+          },
+          "retry_backoff_seconds": {
+            "type": "integer",
+            "maximum": 3600.0,
+            "minimum": 0.0,
+            "title": "Retry Backoff Seconds",
+            "description": "Backoff delay for retries",
+            "default": 60
+          },
+          "enabled": {
+            "type": "boolean",
+            "title": "Enabled",
+            "description": "Whether schedule is active",
+            "default": true
+          },
+          "priority": {
+            "type": "integer",
+            "maximum": 10.0,
+            "minimum": -10.0,
+            "title": "Priority",
+            "description": "Scheduling priority",
+            "default": 0
+          },
+          "metadata": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Metadata",
+            "description": "Additional schedule metadata"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "scope": {
+            "$ref": "#/components/schemas/CrawlScope"
+          },
+          "scope_value": {
+            "type": "string",
+            "title": "Scope Value"
+          },
+          "run_window_start": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Run Window Start"
+          },
+          "run_window_end": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Run Window End"
+          },
+          "last_applied_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Applied At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "scope",
+          "scope_value",
+          "run_window_start",
+          "run_window_end",
+          "last_applied_at"
+        ],
+        "title": "CrawlScheduleResponse",
+        "description": "Response schema for crawl schedules."
+      },
+      "CrawlScheduleUpdateRequest": {
+        "properties": {
+          "mode": {
+            "$ref": "#/components/schemas/CrawlMode",
+            "description": "Crawl behaviour mode",
+            "default": "always_update"
+          },
+          "frequency_seconds": {
+            "type": "integer",
+            "maximum": 86400.0,
+            "minimum": 60.0,
+            "title": "Frequency Seconds",
+            "description": "Frequency in seconds",
+            "default": 900
+          },
+          "jitter_seconds": {
+            "type": "integer",
+            "maximum": 43200.0,
+            "minimum": 0.0,
+            "title": "Jitter Seconds",
+            "description": "Jitter applied to schedule",
+            "default": 300
+          },
+          "max_retries": {
+            "type": "integer",
+            "maximum": 10.0,
+            "minimum": 0.0,
+            "title": "Max Retries",
+            "description": "Maximum retry attempts",
+            "default": 3
+          },
+          "retry_backoff_seconds": {
+            "type": "integer",
+            "maximum": 3600.0,
+            "minimum": 0.0,
+            "title": "Retry Backoff Seconds",
+            "description": "Backoff delay for retries",
+            "default": 60
+          },
+          "enabled": {
+            "type": "boolean",
+            "title": "Enabled",
+            "description": "Whether schedule is active",
+            "default": true
+          },
+          "priority": {
+            "type": "integer",
+            "maximum": 10.0,
+            "minimum": -10.0,
+            "title": "Priority",
+            "description": "Scheduling priority",
+            "default": 0
+          },
+          "metadata": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Metadata",
+            "description": "Additional schedule metadata"
+          },
+          "run_window_start": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Run Window Start",
+            "description": "Optional UTC start time constraint"
+          },
+          "run_window_end": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Run Window End",
+            "description": "Optional UTC end time constraint"
+          }
+        },
+        "type": "object",
+        "title": "CrawlScheduleUpdateRequest",
+        "description": "Request payload for creating/updating crawl schedules."
+      },
+      "CrawlScope": {
+        "type": "string",
+        "enum": [
+          "source_type",
+          "company",
+          "source"
+        ],
+        "title": "CrawlScope",
+        "description": "Scope level for crawl schedule application."
+      },
+      "DigestSettingsUpdate": {
+        "properties": {
+          "digest_enabled": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Digest Enabled"
+          },
+          "digest_frequency": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Digest Frequency"
+          },
+          "digest_custom_schedule": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Digest Custom Schedule"
+          },
+          "digest_format": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Digest Format"
+          },
+          "digest_include_summaries": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Digest Include Summaries"
+          },
+          "telegram_chat_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Telegram Chat Id"
+          },
+          "telegram_enabled": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Telegram Enabled"
+          },
+          "telegram_digest_mode": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Telegram Digest Mode"
+          },
+          "timezone": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Timezone"
+          },
+          "week_start_day": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Week Start Day"
+          }
+        },
+        "type": "object",
+        "title": "DigestSettingsUpdate",
+        "description": "Model for updating digest settings"
+      },
+      "ExportIncludeOptions": {
+        "properties": {
+          "include_notifications": {
+            "type": "boolean",
+            "title": "Include Notifications",
+            "default": true
+          },
+          "include_presets": {
+            "type": "boolean",
+            "title": "Include Presets",
+            "default": true
+          }
+        },
+        "type": "object",
+        "title": "ExportIncludeOptions",
+        "description": "Export payload inclusion flags."
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "ImpactComponentResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "component_type": {
+            "$ref": "#/components/schemas/ImpactComponentType"
+          },
+          "weight": {
+            "type": "number",
+            "title": "Weight"
+          },
+          "score_contribution": {
+            "type": "number",
+            "title": "Score Contribution"
+          },
+          "metadata": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Metadata"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "component_type",
+          "weight",
+          "score_contribution"
+        ],
+        "title": "ImpactComponentResponse",
+        "description": "Response schema for impact score components."
+      },
+      "ImpactComponentType": {
+        "type": "string",
+        "enum": [
+          "news_signal",
+          "pricing_change",
+          "feature_release",
+          "funding_event",
+          "community_event",
+          "other"
+        ],
+        "title": "ImpactComponentType",
+        "description": "Type of component contributing to impact score."
+      },
+      "KnowledgeGraphEdgeResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "company_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Company Id"
+          },
+          "source_entity_type": {
+            "$ref": "#/components/schemas/AnalyticsEntityType"
+          },
+          "source_entity_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Source Entity Id"
+          },
+          "target_entity_type": {
+            "$ref": "#/components/schemas/AnalyticsEntityType"
+          },
+          "target_entity_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Target Entity Id"
+          },
+          "relationship_type": {
+            "$ref": "#/components/schemas/RelationshipType"
+          },
+          "confidence": {
+            "type": "number",
+            "title": "Confidence"
+          },
+          "weight": {
+            "type": "number",
+            "title": "Weight"
+          },
+          "metadata": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Metadata"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "company_id",
+          "source_entity_type",
+          "source_entity_id",
+          "target_entity_type",
+          "target_entity_id",
+          "relationship_type",
+          "confidence",
+          "weight"
+        ],
+        "title": "KnowledgeGraphEdgeResponse",
+        "description": "Response schema for knowledge graph edges."
+      },
+      "NewsCategory": {
+        "type": "string",
+        "enum": [
+          "product_update",
+          "pricing_change",
+          "strategic_announcement",
+          "technical_update",
+          "funding_news",
+          "research_paper",
+          "community_event",
+          "partnership",
+          "acquisition",
+          "integration",
+          "security_update",
+          "api_update",
+          "model_release",
+          "performance_improvement",
+          "feature_deprecation"
+        ],
+        "title": "NewsCategory",
+        "description": "Enhanced News category enumeration with descriptions"
+      },
+      "NewsCreateSchema": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 500,
+            "title": "Title",
+            "description": "News item title"
+          },
+          "content": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Content",
+            "description": "Full content of the news item"
+          },
+          "summary": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Summary",
+            "description": "AI-generated summary"
+          },
+          "source_url": {
+            "type": "string",
+            "minLength": 1,
+            "format": "uri",
+            "title": "Source Url",
+            "description": "Original URL of the news item"
+          },
+          "source_type": {
+            "$ref": "#/components/schemas/SourceType",
+            "description": "Type of the news source"
+          },
+          "company_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Company Id",
+            "description": "Associated company ID"
+          },
+          "category": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/NewsCategory"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "News category"
+          },
+          "priority_score": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Priority Score",
+            "description": "Priority score",
+            "default": 0.5
+          },
+          "published_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Published At",
+            "description": "Publication date"
+          },
+          "topic": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/NewsTopic"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "NLP topic classification"
+          },
+          "sentiment": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SentimentLabel"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Sentiment label"
+          },
+          "raw_snapshot_url": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "format": "uri"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Raw Snapshot Url",
+            "description": "Link to raw page snapshot for provenance"
+          }
+        },
+        "type": "object",
+        "required": [
+          "title",
+          "source_url",
+          "source_type",
+          "published_at"
+        ],
+        "title": "NewsCreateSchema",
+        "description": "Schema for creating news items"
+      },
+      "NewsStatsSchema": {
+        "properties": {
+          "total_count": {
+            "type": "integer",
+            "title": "Total Count",
+            "description": "Total number of news items"
+          },
+          "category_counts": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Category Counts",
+            "description": "Count by category"
+          },
+          "source_type_counts": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Source Type Counts",
+            "description": "Count by source type"
+          },
+          "recent_count": {
+            "type": "integer",
+            "title": "Recent Count",
+            "description": "Number of recent news items"
+          },
+          "high_priority_count": {
+            "type": "integer",
+            "title": "High Priority Count",
+            "description": "Number of high priority items"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total_count",
+          "category_counts",
+          "source_type_counts",
+          "recent_count",
+          "high_priority_count"
+        ],
+        "title": "NewsStatsSchema",
+        "description": "Schema for news statistics"
+      },
+      "NewsTopic": {
+        "type": "string",
+        "enum": [
+          "product",
+          "strategy",
+          "finance",
+          "technology",
+          "security",
+          "research",
+          "community",
+          "talent",
+          "regulation",
+          "market",
+          "other"
+        ],
+        "title": "NewsTopic",
+        "description": "High-level NLP topic labels"
+      },
+      "NewsUpdateSchema": {
+        "properties": {
+          "title": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 500
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title",
+            "description": "News item title"
+          },
+          "content": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Content",
+            "description": "Full content"
+          },
+          "summary": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Summary",
+            "description": "AI-generated summary"
+          },
+          "category": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/NewsCategory"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "News category"
+          },
+          "priority_score": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Priority Score",
+            "description": "Priority score"
+          },
+          "topic": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/NewsTopic"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "NLP topic classification"
+          },
+          "sentiment": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SentimentLabel"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Sentiment label"
+          },
+          "raw_snapshot_url": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "format": "uri"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Raw Snapshot Url",
+            "description": "Link to raw page snapshot for provenance"
+          }
+        },
+        "type": "object",
+        "title": "NewsUpdateSchema",
+        "description": "Schema for updating news items"
+      },
+      "NotificationSettingsSummary": {
+        "properties": {
+          "notification_frequency": {
+            "type": "string",
+            "title": "Notification Frequency"
+          },
+          "digest_enabled": {
+            "type": "boolean",
+            "title": "Digest Enabled"
+          },
+          "digest_frequency": {
+            "type": "string",
+            "title": "Digest Frequency"
+          },
+          "digest_format": {
+            "type": "string",
+            "title": "Digest Format"
+          },
+          "digest_custom_schedule": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Digest Custom Schedule"
+          },
+          "subscribed_companies": {
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "type": "array",
+            "title": "Subscribed Companies"
+          },
+          "interested_categories": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Interested Categories"
+          },
+          "keywords": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Keywords"
+          },
+          "telegram_enabled": {
+            "type": "boolean",
+            "title": "Telegram Enabled"
+          },
+          "telegram_chat_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Telegram Chat Id"
+          },
+          "telegram_digest_mode": {
+            "type": "string",
+            "title": "Telegram Digest Mode"
+          },
+          "timezone": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Timezone"
+          },
+          "week_start_day": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Week Start Day"
+          }
+        },
+        "type": "object",
+        "required": [
+          "notification_frequency",
+          "digest_enabled",
+          "digest_frequency",
+          "digest_format",
+          "telegram_enabled",
+          "telegram_digest_mode"
+        ],
+        "title": "NotificationSettingsSummary",
+        "description": "Notification settings snapshot included in exports."
+      },
+      "RelationshipType": {
+        "type": "string",
+        "enum": [
+          "causes",
+          "correlated_with",
+          "follows",
+          "amplifies",
+          "depends_on"
+        ],
+        "title": "RelationshipType",
+        "description": "Relationship semantics between graph entities."
+      },
+      "ReportPresetCreateRequest": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 255,
+            "title": "Name"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 1000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "companies": {
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "type": "array",
+            "title": "Companies"
+          },
+          "filters": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Filters"
+          },
+          "visualization_config": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Visualization Config"
+          },
+          "is_favorite": {
+            "type": "boolean",
+            "title": "Is Favorite",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "title": "ReportPresetCreateRequest",
+        "description": "Create or update preset payload."
+      },
+      "ReportPresetResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "companies": {
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "type": "array",
+            "title": "Companies"
+          },
+          "filters": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Filters"
+          },
+          "visualization_config": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Visualization Config"
+          },
+          "is_favorite": {
+            "type": "boolean",
+            "title": "Is Favorite"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "user_id",
+          "name",
+          "description",
+          "is_favorite",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "ReportPresetResponse",
+        "description": "Response schema for saved report presets."
+      },
+      "SentimentLabel": {
+        "type": "string",
+        "enum": [
+          "positive",
+          "neutral",
+          "negative",
+          "mixed"
+        ],
+        "title": "SentimentLabel",
+        "description": "Sentiment labels for NLP analysis"
+      },
+      "SnapshotReferenceSchema": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "parser_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Parser Version"
+          },
+          "raw_snapshot_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Raw Snapshot Url"
+          },
+          "extraction_metadata": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Extraction Metadata"
+          },
+          "warnings": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Warnings"
+          },
+          "processing_status": {
+            "$ref": "#/components/schemas/ChangeProcessingStatus"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "parser_version",
+          "raw_snapshot_url",
+          "processing_status"
+        ],
+        "title": "SnapshotReferenceSchema"
+      },
+      "SnapshotSeriesResponse": {
+        "properties": {
+          "company_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Company Id"
+          },
+          "period": {
+            "$ref": "#/components/schemas/AnalyticsPeriod"
+          },
+          "snapshots": {
+            "items": {
+              "$ref": "#/components/schemas/CompanyAnalyticsSnapshotResponse"
+            },
+            "type": "array",
+            "title": "Snapshots"
+          }
+        },
+        "type": "object",
+        "required": [
+          "company_id",
+          "period",
+          "snapshots"
+        ],
+        "title": "SnapshotSeriesResponse",
+        "description": "Collection of snapshots for charting."
+      },
+      "SourceType": {
+        "type": "string",
+        "enum": [
+          "blog",
+          "twitter",
+          "github",
+          "reddit",
+          "news_site",
+          "press_release"
+        ],
+        "title": "SourceType",
+        "description": "Enhanced Source type enumeration with descriptions"
+      },
+      "UserLogin": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "title": "Email"
+          },
+          "password": {
+            "type": "string",
+            "title": "Password"
+          }
+        },
+        "type": "object",
+        "required": [
+          "email",
+          "password"
+        ],
+        "title": "UserLogin",
+        "description": "User login schema"
+      },
+      "UserRegister": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "title": "Email"
+          },
+          "password": {
+            "type": "string",
+            "minLength": 6,
+            "title": "Password"
+          },
+          "full_name": {
+            "type": "string",
+            "minLength": 2,
+            "title": "Full Name"
+          }
+        },
+        "type": "object",
+        "required": [
+          "email",
+          "password",
+          "full_name"
+        ],
+        "title": "UserRegister",
+        "description": "User registration schema"
+      },
+      "UserResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "email": {
+            "type": "string",
+            "title": "Email"
+          },
+          "full_name": {
+            "type": "string",
+            "title": "Full Name"
+          },
+          "is_active": {
+            "type": "boolean",
+            "title": "Is Active"
+          },
+          "is_verified": {
+            "type": "boolean",
+            "title": "Is Verified"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "email",
+          "full_name",
+          "is_active",
+          "is_verified",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "UserResponse",
+        "description": "User response schema"
+      },
+      "UserUpdateSchema": {
+        "properties": {
+          "full_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Full Name",
+            "description": "User's full name"
+          },
+          "is_active": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Is Active",
+            "description": "Whether user account is active"
+          }
+        },
+        "type": "object",
+        "title": "UserUpdateSchema",
+        "description": "Schema for user updates"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    },
+    "securitySchemes": {
+      "OAuth2PasswordBearer": {
+        "type": "oauth2",
+        "flows": {
+          "password": {
+            "scopes": {},
+            "tokenUrl": "/api/v1/auth/login"
+          }
+        }
+      }
+    }
+  }
+}
